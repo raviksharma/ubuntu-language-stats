@@ -10,7 +10,7 @@ self=$(basename "$0")
 tmp_dir=$(mktemp -d -t "${self}".XXXX)
 echo "${tmp_dir}"
 
-# trap cleanup EXIT
+trap cleanup EXIT
 
 main() {
 
@@ -40,7 +40,7 @@ main() {
     echo -n "${pkg_name}: "
 
     tar -xf "${compressed_src}" -C "${tmp_pkg_loc}" --strip-components 1
-    (cd "${tmp_pkg_loc}" && git init -q && git add . && git commit -q -m 'commit'&& github-linguist -j)
+    # (cd "${tmp_pkg_loc}" && git init -q && git add . && git commit -q -m 'commit' && github-linguist -j)
 
   done
 }
