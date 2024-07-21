@@ -2,7 +2,8 @@ import sys
 import json
 import ipdb
 
-recognised_langs=["C","Python","Shell","Makefile","Perl","C++","Roff","M4","XS","HTML","TeX","Meson","JavaScript","Ruby","CMake","Assembly","Raku","Rust","Java","Go","XSLT","CSS","Tcl","Cython","PHP","Yacc","Scheme","SWIG","RPC","OpenEdge ABL","Objective-C++","Emacs Lisp","Common Lisp","C#","Ada","Other"]
+language_color={
+"C":"#003f5c", "Python":"#2f4b7c","Shell":"#665191","Makefile":"#003f5c","Perl":"#a05195","C++":"#d45087","Roff":"#f95d6a","M4":"#ff7c43","XS":"#ffa600","HTML":"","TeX":"","Meson":"","JavaScript":"","Ruby":"","CMake":"","Assembly":"","Raku":"","Rust":"","Java":"","Go":"","XSLT":"","CSS":"","Tcl":"","Cython":"","PHP":"","Yacc":"","Scheme":"","SWIG":"","RPC":"","OpenEdge ABL":"","Objective-C++":"","Emacs Lisp":"","Common Lisp":"","C#":"","Ada":"","Other":""}
 
 def main() -> None:
     f = open(sys.argv[1], 'r')
@@ -17,12 +18,14 @@ def main() -> None:
             print(f'\t<div class="bar">\n\t\t<div class="label">{pkg}</div>')
             for lang, v in dict(sorted(languages.items(), key=lambda item: float(item[1]['percentage']), reverse=True)).items():
                 p = v['percentage']
+                width = float(p)*10
                 if float(p) >= 5.0:
-                    print(f'\t\t<div class="section" style="--section-value: {p};" data-value="{lang} ({p})"></div>')
+                    print(f'\t\t<div class="section" style="--section-value: {width}px; --section-color: {language_color.get(lang, "black")}" data-value="{lang} ({p})"></div>')
                 else:
                     other += float(p)
             if other > 0.0:
-                print(f'\t\t<div class="section" style="--section-value: {other:.2f};" data-value="other ({other:.2f})"></div>')
+                width = float(other)*10
+                print(f'\t\t<div class="section" style="--section-value: {width:.2f}px; --section-color: {language_color.get("other", "black")}" data-value="other ({other:.2f})"></div>')
             print('\t</div>')
     except Exception as e:
         ipdb.set_trace()
