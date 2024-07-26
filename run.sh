@@ -26,7 +26,6 @@ main() {
 
     echo -n "${pkg_name}: "
 
-    #echo $(basename "${compressed_src}")
     dpkg-source -q -x "${compressed_src}" "${tmp_pkg_loc}"
     (cd "${tmp_pkg_loc}" && git init -q && git add . && git commit -q -m 'commit' && github-linguist -j)
 

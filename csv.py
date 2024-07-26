@@ -6,7 +6,6 @@ def main() -> None:
     f = open(sys.argv[1], 'r')
     _ = f.readline()  # discard metadata
 
-    print('package,lang,percentage')
     while line := f.readline():
         pkg, languages_s = line.split(':', 1)
         languages = json.loads(languages_s)
